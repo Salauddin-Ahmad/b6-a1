@@ -123,17 +123,67 @@
 // const array2 = [3, 4, 5, 6, 7];
 // console.log(getUniqueValues(array1, array2));
 
-type arraystType = (string | number)[];
 
-const getUniqueValues = (arr1: arraystType, arr2: arraystType): arraystType => {
-  const unique: arraystType = [];
 
-  const addUnique = (value: string| number) => {
-    for(let i =0; )
-  }
-  return unique;
+
+
+
+// type arraystType = (string | number)[];
+
+// const getUniqueValues = (arr1: arraystType, arr2: arraystType): arraystType => {
+//   const unique: arraystType = [];
+
+//   const addUnique = (value: string| number) => {
+//     for(let i =0; i< unique.length; i++ ){
+//       if (unique[i] === value) return
+//     }
+//     unique.push(value);
+//   };
+
+  
+//   for (let i = 0; i < arr1.length; i++) addUnique(arr1[i]);
+//   for (let i = 0; i < arr2.length; i++) addUnique(arr2[i]);
+
+//   return unique;
+// };
+
+
+// const array1 = [1, 2, 3, 4, 5];
+// const array2 = [3, 4, 5, 6, 7];
+
+// console.log(getUniqueValues(array1, array2));
+
+
+
+type Product = {
+  name: string;
+  price: number;
+  quantity: number;
+  discount?: number;
 };
 
-const array1 = [1, 2, 3, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6];
-const array2 = [3, 4, 5, 6, 7];
-console.log(getUniqueValues(array1, array2));
+
+
+const calculateTotalPrice = (products: Product[]): number => {
+  if (products.length === 0) return 0;
+
+  return products
+    .map(product => {
+      const total = product.price * product.quantity;
+      if (product.discount !== undefined && product.discount >= 0 && product.discount <= 100) {
+        // round the discounted total
+        return total * (1 - product.discount / 100);
+      }
+      return total;
+    })
+    .reduce((acc, curr) => acc + curr, 0);
+};
+
+
+const products = [
+  { name: 'Pen', price: 10, quantity: 2 },
+  { name: 'Notebook', price: 25, quantity: 3, discount: 10 },
+  { name: 'Bag', price: 50, quantity: 1, discount: 20 },
+];
+
+console.log(calculateTotalPrice(products));
